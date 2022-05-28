@@ -9,3 +9,9 @@ kuromoji.jsを使ったサンプル
 # kuromoji
 https://www.jnlp.org/nlp/%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90/kuromoji
 
+# デモ環境
+https://nlp-kuromoji-js.herokuapp.com/
+
+# Qiitaでの説明記事
+https://qiita.com/yo16/items/8800735fef1b267166ef
+
