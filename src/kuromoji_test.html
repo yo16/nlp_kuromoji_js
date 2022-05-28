@@ -6,12 +6,14 @@
         <script type="text/javascript" src="./js/lib/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="./js/lib/kuromoji.js"></script>
         <script language="JavaScript">
-            var tokenizer_builder = kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" });
-            var tokenizer = null;
-            tokenizer_builder.build(function (err, _tokenizer) {
-                // tokenizer is ready
-                tokenizer = _tokenizer;
-            });
+            (function(global){
+                let tokenizer_builder = kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" });
+                tokenizer_builder.build(function (err, _tokenizer) {
+                    // tokenizer is ready
+                    global.tokenizer = _tokenizer;
+                });
+            })(this);
+
             $(function(){
                 $("#btn_execute").click(function(){
                     // 入力のテキストを取得
