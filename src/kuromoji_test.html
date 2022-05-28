@@ -6,9 +6,10 @@
         <script type="text/javascript" src="./js/lib/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="./js/lib/kuromoji.js"></script>
         <script language="JavaScript">
+            var tokenizer = kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" });
             $(function(){
                 $("#btn_execute").click(function(){
-                    kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" }).build(function (err, tokenizer) {
+                    tokenizer.build(function (err, tokenizer) {
                         // tokenizer is ready
                         
                         // 入力のテキストを取得
