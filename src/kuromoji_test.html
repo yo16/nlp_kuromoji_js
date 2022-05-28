@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>kuromoji.jsのテスト</title>
+        <script type="text/javascript" src="./js/lib/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="./js/lib/kuromoji.js"></script>
+        <script language="JavaScript">
+            $(function(){
+                $("#btn_execute").click(function(){
+                    kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" }).build(function (err, tokenizer) {
+                        // tokenizer is ready
+                        
+                        // 入力のテキストを取得
+                        let target_text = $("#input_text").val();
+                        console.log({target_text});
+
+                        // 形態素解析実行
+                        let path = tokenizer.tokenize(target_text);
+
+                        // 結果を描画
+                        let tbody = $("#tbl_result > tbody");
+                        tbody.empty();
+                        for(let i=0; i<path.length; i++){
+                            let word = path[i];
+                            let tr = $("<tr></tr>")
+                                .append($("<td></td>").text(word["surface_form"]))
+                                .append($("<td></td>").text(word["pos"]))
+                                .append($("<td></td>").text(word["pos_detail_1"]))
+                                .append($("<td></td>").text(word["pos_detail_2"]))
+                                .append($("<td></td>").text(word["pos_detail_3"]))
+                                .append($("<td></td>").text(word["conjugated_type"]))
+                                .append($("<td></td>").text(word["conjugated_form"]))
+                                .append($("<td></td>").text(word["basic_form"]))
+                                .append($("<td></td>").text(word["reading"]))
+                                .append($("<td></td>").text(word["pronunciation"]))
+                            ;
+                            tbody.append(tr);
+                        }
+                    });
+                });
+            });
+        </script>
+        <style>
+        th{
+            background-color:#ddd;
+        }
+        td, th{
+            border: 1px solid #aaa;
+            padding: 3px;
+        }
+        .key_name{
+            font-weight:normal;
+            font-size:small;
+            color: #aaa;
+        }
+        </style>
+    </head>
+	<body>
+        <input type="text" id="input_text" value="すもももももももものうち" />
+        <input type="button" id="btn_execute" value="形態素解析！" />
+        <hr />
+        <table id="tbl_result">
+            <thead>
+                <tr>
+                    <th>表層形<br /><span class="key_name">surface_form</span></th>
+                    <th>品詞<br /><span class="key_name">pos</span></th>
+                    <th>品詞細分類1<br /><span class="key_name">pos_detail_1</span></th>
+                    <th>品詞細分類2<br /><span class="key_name">pos_detail_2</span></th>
+                    <th>品詞細分類3<br /><span class="key_name">pos_detail_3</span></th>
+                    <th>活用型<br /><span class="key_name">conjugated_type</span></th>
+                    <th>活用形<br /><span class="key_name">conjugated_form</span></th>
+                    <th>基本形<br /><span class="key_name">basic_form</span></th>
+                    <th>読み<br /><span class="key_name">reading</span></th>
+                    <th>発音<br /><span class="key_name">pronunciation</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </body>
+</html>
