@@ -7,38 +7,39 @@
         <script type="text/javascript" src="./js/lib/kuromoji.js"></script>
         <script language="JavaScript">
             var tokenizer_builder = kuromoji.builder({ dicPath: "./js/lib/kuromoji-dict/" });
+            var tokenizer = null;
+            tokenizer_builder.build(function (err, _tokenizer) {
+                // tokenizer is ready
+                tokenizer = _tokenizer;
+            });
             $(function(){
                 $("#btn_execute").click(function(){
-                    tokenizer_builder.build(function (err, tokenizer) {
-                        // tokenizer is ready
-                        
-                        // 入力のテキストを取得
-                        let target_text = $("#input_text").val();
-                        console.log({target_text});
+                    // 入力のテキストを取得
+                    let target_text = $("#input_text").val();
+                    console.log({target_text});
 
-                        // 形態素解析実行
-                        let path = tokenizer.tokenize(target_text);
+                    // 形態素解析実行
+                    let path = tokenizer.tokenize(target_text);
 
-                        // 結果を描画
-                        let tbody = $("#tbl_result > tbody");
-                        tbody.empty();
-                        for(let i=0; i<path.length; i++){
-                            let word = path[i];
-                            let tr = $("<tr></tr>")
-                                .append($("<td></td>").text(word["surface_form"]))
-                                .append($("<td></td>").text(word["pos"]))
-                                .append($("<td></td>").text(word["pos_detail_1"]))
-                                .append($("<td></td>").text(word["pos_detail_2"]))
-                                .append($("<td></td>").text(word["pos_detail_3"]))
-                                .append($("<td></td>").text(word["conjugated_type"]))
-                                .append($("<td></td>").text(word["conjugated_form"]))
-                                .append($("<td></td>").text(word["basic_form"]))
-                                .append($("<td></td>").text(word["reading"]))
-                                .append($("<td></td>").text(word["pronunciation"]))
-                            ;
-                            tbody.append(tr);
-                        }
-                    });
+                    // 結果を描画
+                    let tbody = $("#tbl_result > tbody");
+                    tbody.empty();
+                    for(let i=0; i<path.length; i++){
+                        let word = path[i];
+                        let tr = $("<tr></tr>")
+                            .append($("<td></td>").text(word["surface_form"]))
+                            .append($("<td></td>").text(word["pos"]))
+                            .append($("<td></td>").text(word["pos_detail_1"]))
+                            .append($("<td></td>").text(word["pos_detail_2"]))
+                            .append($("<td></td>").text(word["pos_detail_3"]))
+                            .append($("<td></td>").text(word["conjugated_type"]))
+                            .append($("<td></td>").text(word["conjugated_form"]))
+                            .append($("<td></td>").text(word["basic_form"]))
+                            .append($("<td></td>").text(word["reading"]))
+                            .append($("<td></td>").text(word["pronunciation"]))
+                        ;
+                        tbody.append(tr);
+                    }
                 });
             });
         </script>
